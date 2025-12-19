@@ -87,44 +87,38 @@ app.post("/api/booking/create-payment", async (req, res) => {
 
 // Payment Success API
 app.post("/api/booking/payment-success", async (req, res) => {
-    const { orderID, bookingData } = req.body;
+  const { orderID, bookingData } = req.body;
 
-    try {
-        // Capture payment
-        const request = new paypal.orders.OrdersCaptureRequest(orderID);
-        request.requestBody({});
-        const capture = await client.execute(request);
+  console.log("Received request to capture payment");
+  console.log("Order ID:", orderID);
+  console.log("Booking Data:", bookingData);
 
-        if (capture.result.status === "COMPLETED") {
-            // Send email to admin
-            await transporter.sendMail({
-                from: `"Hotel Booking" <${process.env.SMTP_USER}>`,
-                to: process.env.ADMIN_EMAIL,
-                subject: `New Booking from ${bookingData.email}`,
-                text: JSON.stringify(bookingData, null, 2),
-            });
+  if (!orderID) {
+    console.error("No orderID provided!");
+    return res.status(400).json({ message: "Order ID is missing" });
+  }
 
-            // Send email to user
-            await transporter.sendMail({
-                from: `"Hotel Booking" <${process.env.SMTP_USER}>`,
-                to: bookingData.email,
-                subject: `Booking Confirmation`,
-                text: `Hi ${bookingData.email},\n\nYour booking has been confirmed!\n\nDetails: ${JSON.stringify(
-                    bookingData,
-                    null,
-                    2
-                )}`,
-            });
+  try {
+    // Capture the payment
+    const request = new paypal.orders.OrdersCaptureRequest(orderID);
+    request.requestBody({});
 
-            res.json({ message: "Payment successful and emails sent!" });
-        } else {
-            res.status(400).json({ message: "Payment not completed" });
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Payment capture failed");
+    const capture = await client.execute(request);
+    console.log("PayPal capture result:", capture.result);
+
+    if (capture.result.status === "COMPLETED") {
+      console.log("Payment successfully captured!");
+      return res.json({ message: "Payment successfully captured!", capture: capture.result });
+    } else {
+      console.warn("Payment capture not completed:", capture.result);
+      return res.status(400).json({ message: "Payment not completed", capture: capture.result });
     }
+  } catch (err) {
+    console.error("Error capturing PayPal payment:", err);
+    res.status(500).json({ message: "Payment capture failed", error: err });
+  }
 });
+
 
 
 
