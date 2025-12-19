@@ -22,8 +22,8 @@ app.use(bodyParser.json());
 // );
 // let client = new paypal.core.PayPalHttpClient(environment);
 const environment = new paypal.core.LiveEnvironment(
-    "clinet",
-    "secret-Zx-OJh15"
+    "ARCyB1iJXgyjMTteFAX1AV0NPCvgn8urh62kaQ5ZBgw3OKz4oQmdeA7W7euaGCFCtZjPCsXGSvZob8YZ",
+    "EI8xhQDs3Tgq87wskXi2QKRo1ZbQ53_m85fFyUGEUE0_k3Qa1frsxHo2whyCTkl4di1s6gv-Zx-OJh15"
 );
 
 const client = new paypal.core.PayPalHttpClient(environment);
