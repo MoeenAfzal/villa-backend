@@ -17,8 +17,8 @@ app.use(bodyParser.json());
 
 // PayPal Environment
 let environment = new paypal.core.SandboxEnvironment(
-    process.env.PAYPAL_CLIENT_ID,
-    process.env.PAYPAL_CLIENT_SECRET
+    "AW5w9JBoNmgvW_9fDgjG7GLxXS8nRUSlb2RoNpNiNxCnBuC5bX8I7PimRb-7USG0I74-mvECW0cwPeMh",
+    "AXCmgBO7yNyQpzcx3z55geQp0ILLyYrTgJ99rPxAfHAr0eST5x3VqlTlyBKTgyaRroDf68Blbt09bqYN"
 );
 let client = new paypal.core.PayPalHttpClient(environment);
 
@@ -49,8 +49,9 @@ app.post("/api/booking/create-payment", async (req, res) => {
             },
         ],
         application_context: {
-            return_url: `${process.env.CLIENT_URL}/payment-success`,
-            cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
+            return_url: `https://corum8-venue.web.app/payment-success`,
+            cancel_url: `https://corum8-venue.web.app/payment-cancel`,
+
         },
     });
 
