@@ -7,12 +7,12 @@ import cors from "cors";
 dotenv.config();
 
 const app = express();
-app.use(cors());
-
-// If you want to allow only your frontend:
 app.use(cors({
-    origin: "https://corum8-venue.web.app"
+  origin: "https://corum8-venue.web.app",
+  methods: ["GET", "POST"],
+  credentials: true
 }));
+
 app.use(bodyParser.json());
 
 // PayPal Environment
