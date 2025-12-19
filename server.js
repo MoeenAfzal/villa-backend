@@ -17,8 +17,8 @@ app.use(bodyParser.json());
 
 // PayPal Environment
 let environment = new paypal.core.SandboxEnvironment(
-    "AW5w9JBoNmgvW_9fDgjG7GLxXS8nRUSlb2RoNpNiNxCnBuC5bX8I7PimRb-7USG0I74-mvECW0cwPeMh",
-    "AXCmgBO7yNyQpzcx3z55geQp0ILLyYrTgJ99rPxAfHAr0eST5x3VqlTlyBKTgyaRroDf68Blbt09bqYN"
+    "ARCyB1iJXgyjMTteFAX1AV0NPCvgn8urh62kaQ5ZBgw3OKz4oQmdeA7W7euaGCFCtZjPCsXGSvZob8YZ",
+    "EI8xhQDs3Tgq87wskXi2QKRo1ZbQ53_m85fFyUGEUE0_k3Qa1frsxHo2whyCTkl4di1s6gv-Zx-OJh15"
 );
 let client = new paypal.core.PayPalHttpClient(environment);
 
