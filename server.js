@@ -11,7 +11,7 @@ app.use(cors());
 
 // If you want to allow only your frontend:
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: "https://corum8-venue.web.app"
 }));
 app.use(bodyParser.json());
 
