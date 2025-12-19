@@ -22,8 +22,8 @@ app.use(bodyParser.json());
 // );
 // let client = new paypal.core.PayPalHttpClient(environment);
 const environment = new paypal.core.LiveEnvironment(
-    "ARCyB1iJXgyjMTteFAX1AV0NPCvgn8urh62kaQ5ZBgw3OKz4oQmdeA7W7euaGCFCtZjPCsXGSvZob8YZ",
-    "EI8xhQDs3Tgq87wskXi2QKRo1ZbQ53_m85fFyUGEUE0_k3Qa1frsxHo2whyCTkl4di1s6gv-Zx-OJh15"
+    "clinet",
+    "secret-Zx-OJh15"
 );
 
 const client = new paypal.core.PayPalHttpClient(environment);
@@ -49,7 +49,8 @@ app.post("/api/booking/create-payment", async (req, res) => {
             {
                 amount: {
                     currency_code: "USD",
-                    value: totalAmount,
+                    value: Number(totalAmount).toFixed(2),
+
                 },
             },
         ],
@@ -124,18 +125,7 @@ app.post("/api/booking/payment-success", async (req, res) => {
         res.status(500).send("Payment capture failed");
     }
 });
-app.post("/api/booking/capture-payment/:orderId", async (req, res) => {
-    try {
-        const { orderId } = req.params;
-        const request = new paypal.orders.OrdersCaptureRequest(orderId);
-        request.requestBody({});
-        const capture = await client.execute(request);
-        res.json(capture.result);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Capture failed" });
-    }
-});
+
 
 
 const PORT = process.env.PORT || 5000;
