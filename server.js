@@ -8,9 +8,9 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: "https://corum8-venue.web.app",
-  methods: ["GET", "POST"],
-  credentials: true
+    origin: "https://corum8-venue.web.app",
+    methods: ["GET", "POST"],
+    credentials: true
 }));
 
 app.use(bodyParser.json());
@@ -64,9 +64,17 @@ app.post("/api/booking/create-payment", async (req, res) => {
             status: order.result.status
         });
     } catch (err) {
-        console.error(err);
-        res.status(500).send("Error creating PayPal order");
+        console.error("PayPal error:", err);
+        if (err.statusCode) {
+            console.error("Status:", err.statusCode);
+            console.error("Details:", err.result);
+        }
+        res.status(500).json({
+            message: "Error creating PayPal order",
+            paypal: err.result || null
+        });
     }
+
 
 });
 
