@@ -48,7 +48,7 @@ app.post("/api/booking/create-payment", async (req, res) => {
         purchase_units: [
             {
                 amount: {
-                    currency_code: "USD",
+                    currency_code: "INR",
                     value: Number(totalAmount).toFixed(2),
 
                 },
