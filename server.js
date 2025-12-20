@@ -119,7 +119,12 @@ app.post("/api/booking/payment-success", async (req, res) => {
   }
 });
 
-
+app.get('/api/calendar', async (req, res) => {
+  const url = 'https://www.airbnb.com/calendar/ical/1544385860919253271.ics?t=33b8f4d615604e40b62c31781d8e2958&locale=en-GB';
+  const response = await fetch(url);
+  const data = await response.text(); // ICS is plain text
+  res.send(data);
+});
 
 
 const PORT = process.env.PORT || 5000;
