@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-    origin: "https://corum8-venue.web.app",
+    origin: "https://venue.corum8.com",
     methods: ["GET", "POST"],
     credentials: true
 }));
@@ -55,8 +55,8 @@ app.post("/api/booking/create-payment", async (req, res) => {
             },
         ],
         application_context: {
-            return_url: `https://corum8-venue.web.app/payment-success`,
-            cancel_url: `https://corum8-venue.web.app/payment-cancel`,
+            return_url: `https://venue.corum8.com/payment-success`,
+            cancel_url: `https://venue.corum8.com/payment-cancel`,
 
         },
     });
